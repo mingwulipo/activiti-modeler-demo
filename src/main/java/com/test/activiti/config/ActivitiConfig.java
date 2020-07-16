@@ -2,8 +2,6 @@ package com.test.activiti.config;
 
 import org.activiti.engine.*;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.activiti.rest.common.application.ContentTypeResolver;
-import org.activiti.rest.common.application.DefaultContentTypeResolver;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +18,7 @@ import javax.sql.DataSource;
  * @Version 1.0
  **/
 @Configuration
-public class Cfg_Activiti {
+public class ActivitiConfig {
 
     //流程配置，与spring整合采用SpringProcessEngineConfiguration这个实现
     @Bean
