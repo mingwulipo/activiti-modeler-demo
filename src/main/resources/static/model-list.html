@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>模型管理</title>
@@ -72,6 +72,32 @@
     </tbody>
 </table>
 
+<hr>
+<button onclick="$.post('/test/createUserRole', null, function (result) {alert(JSON.stringify(result))})">创建用户角色</button>
+<button onclick="$.post('/test/userLogin?userId=1', null, function (result) {alert(JSON.stringify(result))})">员工登陆</button>
+<button onclick="$.post('/test/userLogin?userId=2', null, function (result) {alert(JSON.stringify(result))})">经理登陆</button>
+<button onclick="$.post('/test/userLogin?userId=3', null, function (result) {alert(JSON.stringify(result))})">总监登陆</button>
+<button onclick="$.post('/test/userLogin?userId=4', null, function (result) {alert(JSON.stringify(result))})">人力登陆</button>
+
+<hr>
+<h2>待办任务列表</h2>
+<hr>
+<table border="1">
+    <tr>
+        <td>编号</td>
+        <td>任务key</td>
+        <td>任务名称</td>
+        <td>流程key</td>
+        <td>流程名称</td>
+        <td>创建时间</td>
+        <td>操作</td>
+    </tr>
+    <tbody style="text-align: center;" id="taskListTbody">
+
+    </tbody>
+</table>
+
+
 <script src="/lib/js/jquery-1.10.2.min.js"></script>
 <script src="/lib/js/jquery.cookie.js"></script>
 <script src="/js/ajax-util.js"></script>
@@ -85,7 +111,50 @@
         searchDeploy();
         searchProcessDefine();
         searchProcessInstance();
+        searchTask();
     });
+
+    function searchTask() {
+
+        $.get("/task/list", null, function (result) {
+
+            //遍历列表
+            var arr = result;
+            $("#taskListTbody").empty();
+
+            var length = arr.length;
+            for (var i = 0; i < length; i++) {//for中变量是number
+                var m = arr[i];
+                var idStr = "'" + m.id + "'";
+
+                var listHtml = '<tr>'+
+                    '<td style="text-align: center;width: 100px">' + m.taskId + '</td>' +
+                    '<td style="text-align: center;width: 100px">' + m.taskKey + '</td>' +
+                    '<td style="text-align: center;width: 100px">' + m.taskName + '</td>' +
+                    '<td style="text-align: center;width: 100px">' + m.processDefinitionKey + '</td>' +
+                    '<td style="text-align: center;width: 100px">' + m.processDefinitionName + '</td>' +
+                    '<td style="text-align: center;width: 100px">' + m.createTime + '</td>' +
+                    '<td style="text-align: center;">' +
+                    '<button onclick="completeTask(' + m.taskId + ')">办理</button>    ' +
+                    '</td>' +
+                    '</tr>';
+
+                $("#taskListTbody").append(listHtml);
+            }
+        });
+    }
+    function completeTask(taskId) {
+        var params = {
+            taskId : taskId
+        };
+        $.post("/task/complete", params, function (result) {
+            if (result == 'ok') {
+                window.location.href="/model-list.html";
+            } else {
+                alert(result);
+            }
+        })
+    }
 
     function searchProcessInstance() {
 
@@ -107,6 +176,7 @@
                     '<td style="text-align: center;width: 100px">' + m.processDefinitionVersion + '</td>' +
                     '<td style="text-align: center;">' +
                     '<a target="_blank" href="/processInstance/goImage?processInstanceId=' + m.id + '">流程追踪</a>    ' +
+                    '<button onclick="deleteProcessInstance(' + m.id + ')">删除</button>    ' +
                     '</td>' +
                     '</tr>';
                 $("#processInstanceListTbody").append(listHtml);
@@ -145,7 +215,7 @@
 
     function searchDeploy() {
 
-        $.get("/deployments/list", null, function (result) {
+        $.get("/deployment/list", null, function (result) {
 
             //遍历列表
             var arr = result;
@@ -169,7 +239,7 @@
     }
     function searchProcessDefine() {
 
-        $.get("/processDefinitions/list", null, function (result) {
+        $.get("/processDefinition/list", null, function (result) {
 
             //遍历列表
             var arr = result;
@@ -188,7 +258,7 @@
                     '<td style="text-align: center;">' +
                     '<button onclick="deleteProcessDefinition(' + idStr + ')">删除</button>    ' +
                     '<button onclick="startProcessDefinition(' + idStr + ')">启动</button>    ' +
-                    '<a target="_blank" href="/processDefinitions/showPng?processDefinitionId=' + m.id + '">流程图</a>    ' +
+                    '<a target="_blank" href="/processDefinition/showPng?processDefinitionId=' + m.id + '">流程图</a>    ' +
                     '</td>' +
                     '</tr>';
                 $("#processDefinitionListTbody").append(listHtml);
@@ -199,7 +269,7 @@
         var params = {
             processDefinitionId : processDefinitionId
         };
-        $.post("/processDefinitions/start", params, function (result) {
+        $.post("/processDefinition/start", params, function (result) {
             if (result == 'ok') {
                 window.location.href="/model-list.html";
             } else {
@@ -213,6 +283,16 @@
             modelId : modelId
         };
         $.post("/models/deploy", params, function (result) {
+            if (result == 'ok') {
+                window.location.href="/model-list.html";
+            }
+        })
+    }
+    function deleteProcessInstance(processInstanceId) {
+        var params = {
+            processInstanceId : processInstanceId
+        };
+        $.post("/processInstance/delete", params, function (result) {
             if (result == 'ok') {
                 window.location.href="/model-list.html";
             }
@@ -234,7 +314,7 @@
         var params = {
             deploymentId : deploymentId
         };
-        $.post("/deployments/delete", params, function (result) {
+        $.post("/deployment/delete", params, function (result) {
             if (result == 'ok') {
                 window.location.href="/model-list.html";
             } else {
@@ -246,7 +326,7 @@
         var params = {
             processDefinitionId : processDefinitionId
         };
-        $.post("/processDefinitions/delete", params, function (result) {
+        $.post("/processDefinition/delete", params, function (result) {
             if (result == 'ok') {
                 window.location.href="/model-list.html";
             } else {
@@ -258,7 +338,7 @@
         var params = {
             processDefinitionId : processDefinitionId
         };
-        $.post("/processDefinitions/delete", params, function (result) {
+        $.post("/processDefinition/delete", params, function (result) {
             if (result == 'ok') {
                 window.location.href="/model-list.html";
             } else {

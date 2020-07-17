@@ -14,8 +14,8 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/deployments")
-public class DeploymentsController {
+@RequestMapping("/deployment")
+public class DeploymentController {
 
     @Autowired
     private RepositoryService repositoryService;

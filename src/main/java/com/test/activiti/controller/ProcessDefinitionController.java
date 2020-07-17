@@ -26,8 +26,8 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/processDefinitions")
-public class ProcessDefinitionsController {
+@RequestMapping("/processDefinition")
+public class ProcessDefinitionController {
 
     @Autowired
     private RepositoryService repositoryService;
