@@ -1,0 +1,128 @@
+{
+	"bounds": {
+		"lowerRight": {
+			"x": 1200,
+			"y": 1050
+		},
+		"upperLeft": {
+			"x": 0,
+			"y": 0
+		}
+	},
+	"children": [
+		{
+			"bounds": {
+				"lowerRight": {
+					"x": 228,
+					"y": 150
+				},
+				"upperLeft": {
+					"x": 198,
+					"y": 120
+				}
+			},
+			"key": "",
+			"nextResourceId": "r5",
+			"resourceId": "r1",
+			"type": 1
+		},{
+
+			"bounds": {
+				"lowerRight": {
+					"x": 269.6796875,
+					"y": 135
+				},
+				"upperLeft": {
+					"x": 228.2109375,
+					"y": 135
+				}
+			},
+			"key": "",
+			"nextResourceId": "r2",
+			"resourceId": "r5",
+			"type": 3
+		},{
+
+			"bounds": {
+				"lowerRight": {
+					"x": 370,
+					"y": 175
+				},
+				"upperLeft": {
+					"x": 270,
+					"y": 95
+				}
+			},
+			"key": "apply",
+			"nextResourceId": "r6",
+			"resourceId": "r2",
+			"type": 2
+		},{
+
+			"bounds": {
+				"lowerRight": {
+					"x": 417.28125,
+					"y": 135
+				},
+				"upperLeft": {
+					"x": 370.71875,
+					"y": 135
+				}
+			},
+			"key": "",
+			"nextResourceId": "r3",
+			"resourceId": "r6",
+			"type": 3
+		},{
+
+			"bounds": {
+				"lowerRight": {
+					"x": 518,
+					"y": 175
+				},
+				"upperLeft": {
+					"x": 418,
+					"y": 95
+				}
+			},
+			"key": "hrApprove",
+			"nextResourceId": "r7",
+			"resourceId": "r3",
+			"type": 2
+		},{
+
+			"bounds": {
+				"lowerRight": {
+					"x": 562.375,
+					"y": 135
+				},
+				"upperLeft": {
+					"x": 518.390625,
+					"y": 135
+				}
+			},
+			"key": "",
+			"nextResourceId": "r4",
+			"resourceId": "r7",
+			"type": 3
+		},{
+
+			"bounds": {
+				"lowerRight": {
+					"x": 591,
+					"y": 149
+				},
+				"upperLeft": {
+					"x": 563,
+					"y": 121
+				}
+			},
+			"key": "",
+			"nextResourceId": "",
+			"resourceId": "r4",
+			"type": 4
+		}
+	],
+	"processKey": "business",
+	"processName": "业务流程"
+}

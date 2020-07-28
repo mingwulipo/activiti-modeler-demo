@@ -1,7 +1,7 @@
 package com.test.activiti.controller;
 
-import com.test.activiti.model.ActivityVO;
-import com.test.activiti.model.ProcessInstanceVO;
+import com.test.activiti.model.vo.ActivityVO;
+import com.test.activiti.model.vo.ProcessInstanceVO;
 import com.test.activiti.util.CollectionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.RepositoryService;

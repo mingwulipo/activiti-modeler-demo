@@ -1,13 +1,15 @@
 package com.test.activiti.controller;
 
-import com.test.activiti.config.UserCache;
-import com.test.activiti.model.TaskVO;
+import com.test.activiti.model.vo.TaskVO;
+import com.test.activiti.service.TaskSumService;
+import com.test.activiti.util.UserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,11 +29,12 @@ public class TaskController {
     private TaskService taskService;
     @Autowired
     private RepositoryService repositoryService;
+    @Autowired
+    private TaskSumService taskSumService;
 
     @RequestMapping("/list")
     public Object list() {
-        String loginUserId = UserCache.loginUserId;
-        System.out.println(loginUserId);
+        String loginUserId = UserUtil.loginUserId;
         List<Task> list = taskService.createTaskQuery().taskCandidateUser(loginUserId).orderByTaskCreateTime().desc().list();
         list.forEach(task -> taskService.claim(task.getId(), loginUserId));
 
@@ -57,6 +60,11 @@ public class TaskController {
     public Object complete(String taskId) {
         taskService.complete(taskId);
         return "ok";
+    }
+
+    @PostMapping("/allJob")
+    public Object allJob() {
+        return taskSumService.allJob();
     }
 
 }

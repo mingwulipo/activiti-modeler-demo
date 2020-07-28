@@ -1,4 +1,4 @@
-package com.test.activiti.model;
+package com.test.activiti.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

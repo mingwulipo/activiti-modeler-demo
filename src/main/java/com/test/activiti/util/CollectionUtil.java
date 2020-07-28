@@ -35,9 +35,16 @@ public class CollectionUtil {
      * @param c
      * @return
      */
-    public static  <T> List<T> convert(List<?> sourceList, Class<T> c) {
+    public static <T> List<T> convert(List<?> sourceList, Class<T> c) {
         List<T> list = new ArrayList<>();
         sourceList.forEach(src -> list.add(convert(src, c)));
         return list;
     }
+
+    public static <T> List<T> singleList(T t) {
+        List<T> list = new ArrayList<>();
+        list.add(t);
+        return list;
+    }
+
 }

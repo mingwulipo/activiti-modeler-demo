@@ -1,6 +1,6 @@
 package com.test.activiti.controller;
 
-import com.test.activiti.model.DeploymentVO;
+import com.test.activiti.model.vo.DeploymentVO;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;

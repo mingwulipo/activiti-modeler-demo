@@ -1,4 +1,4 @@
-package com.test.activiti.model;
+package com.test.activiti.model.vo;
 
 import lombok.Data;
 

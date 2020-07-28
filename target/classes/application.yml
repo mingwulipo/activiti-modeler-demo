@@ -30,6 +30,9 @@ spring:
     check-process-definitions: false  #这个比较重要，不配置的话会扫描类路径下的processes下的.xml文件
     process-definition-location-prefix: classpath:/processes/
 
+  swagger:
+    enable: true
+
 #mybatis 配置
 mybatis:
   type-aliases-package: com.test.activiti.entity
