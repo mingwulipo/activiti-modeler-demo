@@ -1,6 +1,6 @@
 *.iml
 .idea
-*/target/
+target/
 *.class
 .eclipse
 .classpath
